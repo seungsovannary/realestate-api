@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Property extends Model
 {
@@ -16,5 +17,21 @@ class Property extends Model
     protected $fillable = [
         'name',
         'price',
+        'description',
+        'image',
+        'type',
+        'user_id',
+        'category_id',
+        'status',
     ];
+
+    public function user() : BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function category() : BelongsTo
+    {
+        return $this->belongsTo(Category::class); 
+    }
 }
