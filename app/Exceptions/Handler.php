@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -24,11 +25,16 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        $this->reportable(function (Throwable $e) {
-            //
-            if ($e instanceof AuthorizationException) {
-                return response()->json($e->getMessage(), 401);
-            }
-        });
+    }
+
+    public function render($request, Throwable $e)
+    {
+        if ($e instanceof ValidationException) {
+            return response()->json($e->validator->getMessageBag()->getMessages(), 422);
+        }
+        if ($e instanceof AuthorizationException) {
+            return response()->json($e->getMessage(), 401);
+        }
+        return response()->json($e->getMessage(), 500);
     }
 }
