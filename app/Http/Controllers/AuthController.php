@@ -27,7 +27,8 @@ class AuthController extends BaseController
             $token = $request->user()->createToken("access token");
             return [
                 'success' => true,
-                'access_token' => $token->plainTextToken
+                'access_token' => $token->plainTextToken,
+                'user'=> $request->user(),
             ];
         }
 
