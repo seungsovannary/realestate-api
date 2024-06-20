@@ -66,7 +66,7 @@ class AuthController extends BaseController
             $imageName = Str::random(10) . '.' . $extension;
 
             Storage::disk('public')->put($imageName, base64_decode($image));
-            $form["profile"] = Storage::url($imageName);
+            $form["profile"] = Storage::disk("public")->url($imageName);
         }
 
         $data = User::create($form);

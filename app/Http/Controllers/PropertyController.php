@@ -76,7 +76,7 @@ class PropertyController extends BaseController
             $imageName = Str::random(10) . '.' . $extension;
 
             Storage::disk('public')->put($imageName, base64_decode($image));
-            $data["image"]  = Storage::url($imageName); // or asset($imageName)
+            $data["image"] = Storage::disk("public")->url($imageName);
         }
 
         $property = Property::findOrFail($id);
@@ -111,9 +111,8 @@ class PropertyController extends BaseController
 
             Storage::disk('public')->put($imageName, base64_decode($image));
             // Use either url() or asset() helper function to generate the URL
-            $data["image"] = Storage::url($imageName); // or asset($imageName)
+            $data["image"] = Storage::disk("public")->url($imageName); // or asset($imageName)
         }
-
 
         $property = Property::create($data);
 
