@@ -50,16 +50,16 @@ Route::middleware(['auth:sanctum', 'permission.admin'])->delete('/categories/{id
 
 
 // returns the home page with all posts
-Route::get('/', PostController::class .'@index');
+Route::get('/', PostController::class . '@index');
 // returns the form for adding a post
 Route::get('/posts/create', PostController::class . '@create');
 // adds a post to the database
-Route::post('/posts', PostController::class .'@store');
+Route::post('/posts', PostController::class . '@store');
 // returns a page that shows a full post
-Route::get('/posts/{post}', PostController::class .'@show');
+Route::get('/posts/{post}', PostController::class . '@show');
 // returns the form for editing a post
-Route::get('/posts/{post}/edit', PostController::class .'@edit');
+Route::get('/posts/{post}/edit', PostController::class . '@edit');
 // updates a post
-Route::put('/posts/{post}', PostController::class .'@update');
+Route::put('/posts/{post}', PostController::class . '@update');
 // deletes a post
-Route::delete('/posts/{post}', PostController::class .'@destroy');
+Route::delete('/posts/{post}', PostController::class . '@destroy');

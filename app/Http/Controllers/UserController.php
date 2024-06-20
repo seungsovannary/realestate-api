@@ -45,7 +45,7 @@ class UserController extends BaseController
             $imageName = Str::random(10) . '.' . $extension;
 
             Storage::disk('public')->put($imageName, base64_decode($image));
-            $data["profile"] = Storage::disk("public")->url($imageName);
+            $data["profile"] = Storage::url($imageName);
         }
 
         info($data);

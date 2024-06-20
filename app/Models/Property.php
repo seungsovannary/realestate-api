@@ -25,13 +25,13 @@ class Property extends Model
         'status',
     ];
 
-    public function user() : BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function category() : BelongsTo
+    public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class); 
+        return $this->belongsTo(Category::class);
     }
 }

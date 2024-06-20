@@ -12,7 +12,7 @@ class AdminPermission
     public function handle(Request $request, Closure $next, string ...$guards)
     {
         $user = Auth::user();
-        if ($user->role_id !== 1) {
+        if ($user->role_id !== "1") {
             throw new UnauthorizedException("Unauthorized");
         }
         return $next($request);

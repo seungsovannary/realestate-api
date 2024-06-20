@@ -22,13 +22,13 @@ class AuthController extends BaseController
             'password' => $password
         ]);
 
-        if ($result && $request->user()->status === 'approved') {
+        if ($result) {
             // create a token for user
             $token = $request->user()->createToken("access token");
             return [
                 'success' => true,
                 'access_token' => $token->plainTextToken,
-                'user'=> $request->user(),
+                'user' => $request->user(),
             ];
         }
 
@@ -36,7 +36,7 @@ class AuthController extends BaseController
             [
                 'success' => false,
                 'message' => "Login Failed",
-                'user' => $request->user()
+                // 'user' => $request->user()
             ],
             422
         );
@@ -66,7 +66,7 @@ class AuthController extends BaseController
             $imageName = Str::random(10) . '.' . $extension;
 
             Storage::disk('public')->put($imageName, base64_decode($image));
-            $form["profile"] = Storage::disk("public")->url($imageName);
+            $form["profile"] = Storage::url($imageName);
         }
 
         $data = User::create($form);
