@@ -18,8 +18,8 @@ class RoleSeeder extends Seeder
         ]);
 
         Role::factory()->create([
-            'slug' => 'property_owner',
-            'name' => 'Property Owner',
+            'slug' => 'seller',
+            'name' => 'Seller',
         ]);
 
         Role::factory()->create([

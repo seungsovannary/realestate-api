@@ -4,6 +4,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\SaveController;
+use App\Http\Controllers\StateTownVillageController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -63,3 +65,20 @@ Route::get('/posts/{post}/edit', PostController::class . '@edit');
 Route::put('/posts/{post}', PostController::class . '@update');
 // deletes a post
 Route::delete('/posts/{post}', PostController::class . '@destroy');
+
+
+Route::get('/states', StateTownVillageController::class . '@indexState');
+Route::get('/towns', StateTownVillageController::class . '@indexTown');
+Route::get('/villages', StateTownVillageController::class . '@indexVillage');
+
+
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::post('/saves', [SaveController::class, 'store']);
+    Route::get('/saves/{id}', [SaveController::class, 'show']);
+    Route::delete('/saves/{id}', [SaveController::class, 'destroy']);
+    Route::get('/saves', [SaveController::class, 'index']);
+    Route::get('/saves/user/{userId}', [SaveController::class, 'getByUserId']);
+    Route::get('/saved/{id}', [SaveController::class, 'saved']);
+    Route::delete('/unsaved/{id}', [SaveController::class, 'unsaved']);
+});

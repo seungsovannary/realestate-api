@@ -11,16 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('properties', function (Blueprint $table) {
+        Schema::create('villages', function (Blueprint $table) {
             $table->id();
-            $table->integer("user_id");
-            $table->integer("category_id");
-            $table->enum("type", ['sell', 'rent', 'booking']);
             $table->string('name');
-            $table->text('description');
-            $table->string('image');
-            $table->enum('status', ['pending', 'approved', 'unapproved']);
-            $table->decimal('price');
+            $table->foreignId('town_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('properties');
+        Schema::dropIfExists('villages');
     }
 };
