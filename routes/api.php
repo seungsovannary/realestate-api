@@ -48,7 +48,7 @@ Route::get('/categories', [CategoryController::class, "getList"]);
 Route::middleware(['auth:sanctum', 'permission.admin'])->post('/categories', [CategoryController::class, "create"]);
 Route::middleware(['auth:sanctum', 'permission.admin'])->get('/categories/{id}', [CategoryController::class, "get"]);
 Route::middleware(['auth:sanctum', 'permission.admin'])->put('/categories/{id}', [CategoryController::class, "update"]);
-Route::middleware(['auth:sanctum', 'permission.admin'])->delete('/categories/{id}', [CategoryController::class, "delete"]);
+Route::middleware(['auth:sanctum', 'permission.admin'])->delete('/categories/{id}', [CategoryController::class, 'destroy']);
 
 
 // returns the home page with all posts

@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller as BaseController;
 
 class CategoryController extends BaseController
 {
-        public function getList()
+    public function getList()
     {
         $data = Category::all();
 
@@ -48,5 +48,14 @@ class CategoryController extends BaseController
         return response()->json(
             $Category
         );
+    }
+    public function destroy($id)
+    {
+        $Category = Category::findOrFail($id);
+        $Category->delete();
+
+        return response()->json([
+            'message' => 'Category deleted successfully'
+        ]);
     }
 }

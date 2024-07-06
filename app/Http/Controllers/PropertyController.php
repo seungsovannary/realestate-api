@@ -172,6 +172,7 @@ class PropertyController extends BaseController
             'type' => 'required|in:sale,rent,booking',
             'status' => 'required|in:pending,approved,unapproved',
             'address' => 'nullable',
+            'image' => 'nullable',
             'street' => 'nullable',
             'village_name' => 'nullable',
             'town_name' => 'nullable',
@@ -186,27 +187,26 @@ class PropertyController extends BaseController
         $data = $request->all();
         $data["user_id"] = Auth::user()->id;
 
-        // Handle image URL if provided
-        if ($imageUrl = $request->get("image_url")) {
-            $data["image"] = $imageUrl;
-        }
+        // // Handle image URL if provided
+        // if ($imageUrl = $request->get("image_url")) {
+        //     $data["image"] = $imageUrl;
+        // }
 
-        // Handle base64 image if provided
-        if ($image64 = $request->get("image")) {
-            // Extract image extension
-            $extension = explode('/', explode(':', substr($image64, 0, strpos($image64, ';')))[1])[1]; // .jpg, .png, etc.
-            // Remove the base64 part before the comma
-            $replace = substr($image64, 0, strpos($image64, ',') + 1);
-            $image = str_replace($replace, '', $image64);
-            $image = str_replace(' ', '+', $image);
-            // Generate a random name for the image
-            $imageName = Str::random(10) . '.' . $extension;
+        // if ($image64 = $request->get("image")) {
+        //     // Extract image extension
+        //     $extension = explode('/', explode(':', substr($image64, 0, strpos($image64, ';')))[1])[1]; // .jpg, .png, etc.
+        //     // Remove the base64 part before the comma
+        //     $replace = substr($image64, 0, strpos($image64, ',') + 1);
+        //     $image = str_replace($replace, '', $image64);
+        //     $image = str_replace(' ', '+', $image);
+        //     // Generate a random name for the image
+        //     $imageName = Str::random(10) . '.' . $extension;
 
-            // Store the image
-            Storage::disk('public')->put($imageName, base64_decode($image));
-            // Get the URL of the stored image
-            $data["image"] = Storage::disk('public')->url($imageName); // or asset($imageName)
-        }
+        //     // Store the image
+        //     Storage::disk('public')->put($imageName, base64_decode($image));
+        //     // Get the URL of the stored image
+        //     $data["image"] = Storage::disk('public')->url($imageName); // or asset($imageName)
+        // }
 
         // Create the Property record
         $property = Property::create($data);
